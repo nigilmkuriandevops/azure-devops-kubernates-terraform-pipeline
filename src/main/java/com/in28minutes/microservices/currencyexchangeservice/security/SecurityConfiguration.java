@@ -1,4 +1,4 @@
-package com.in28minutes.microservices.currencyconversionservice.security;
+package com.in28minutes.microservices.currencyexchangeservice.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

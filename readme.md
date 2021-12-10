@@ -1,19 +1,39 @@
-# Currency Conversion Micro Service
-Run com.in28minutes.microservices.currencyconversionservice.CurrencyConversionServiceApplication as a Java Application.
+# Currency Exchange Micro Service - H2
+
+Run com.in28minutes.microservices.currencyconversionservice.CurrencyConversionServiceApplicationH2 as a Java Application.
 
 ## Resources
 
-- http://localhost:8100/currency-conversion/from/EUR/to/INR/quantity/10
+- http://localhost:8000/currency-exchange/from/USD/to/INR
 
 ```json
 {
-id: 10002,
-from: "EUR",
-to: "INR",
-conversionMultiple: 75,
-quantity: 10,
-totalCalculatedAmount: 750
+  "id": 10001,
+  "from": "USD",
+  "to": "INR",
+  "conversionMultiple": 65.00,
+  "environmentInfo": "NA"
 }
+```
+
+## H2 Console
+
+- http://localhost:8000/h2-console
+- Use `jdbc:h2:mem:testdb` as JDBC URL
+
+
+## Notes
+
+## Tables Created
+```
+create table exchange_value 
+(
+	id bigint not null, 
+	conversion_multiple decimal(19,2), 
+	currency_from varchar(255), 
+	currency_to varchar(255), 
+	primary key (id)
+)
 ```
 
 ## Containerization
@@ -25,31 +45,13 @@ totalCalculatedAmount: 750
 - Problem - Error creating the Docker image on MacOS - java.io.IOException: Cannot run program “docker-credential-osxkeychain”: error=2, No such file or directory
 - Solution - https://medium.com/@dakshika/error-creating-the-docker-image-on-macos-wso2-enterprise-integrator-tooling-dfb5b537b44e
 
-### Creating Containers
+### Creating Container
 
 - mvn package
 
-### Running Containers
+### Running Container
 
+#### Basic
 ```
-docker run --publish 8100:8100 --network currency-network --env CURRENCY_EXCHANGE_URI=http://currency-exchange:8000 in28min/currency-conversion:0.0.1-SNAPSHOT
-```
-
-#### Test API 
-- http://localhost:8100/currency-conversion/from/EUR/to/INR/quantity/10
-
-```
-docker login
-docker push @@@REPO_NAME@@@/currency-conversion:0.0.1-SNAPSHOT
-```
-
-#### Environment Variable
-
-```
-        env:     #CHANGE
-          - name: CURRENCY_EXCHANGE_URI
-            valueFrom:
-              configMapKeyRef:
-                key: CURRENCY_EXCHANGE_URI
-                name: currency-exchange-uri-demo
+docker container run --publish 8000:8000 in28min/currency-exchange:0.0.1-SNAPSHOT
 ```
