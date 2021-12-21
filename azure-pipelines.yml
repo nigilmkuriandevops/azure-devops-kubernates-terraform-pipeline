@@ -19,22 +19,28 @@ stages:
     steps:
     - bash: echo build SecondJob changed!
 - stage: DevDeploy
+  variables:
+    environment: dev
   dependsOn: Build
   jobs:
   - job: DevDeployFirstJob
     steps:
-    - bash: echo DevDeploy FirstJob
+    - bash: echo $(environment)Deploy FirstJob
 - stage: QADeploy
+  variables:
+    environment: QA
   dependsOn: Build
   jobs:
   - job: QADeployFirstJob
     steps:
-    - bash: echo QADeploy FirstJob
+    - bash: echo $(environment)Deploy FirstJob
 - stage: ProdDeploy
+  variables:
+    environment: Prod
   dependsOn: 
   - DevDeploy
   - QADeploy
   jobs:
   - job: ProdDeployFirstJob
     steps:
-    - bash: echo ProdDeploy FirstJob
+    - bash: echo $(environment)Deploy FirstJob
