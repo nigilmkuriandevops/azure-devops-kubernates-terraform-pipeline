@@ -17,7 +17,7 @@ stages:
     - bash: echo Build FirstJob
   - job: SecondJob
     steps:
-    - bash: echo build SecondJob
+    - bash: echo build SecondJob changed!
 - stage: DevDeploy
   dependsOn: Build
   jobs:
