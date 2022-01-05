@@ -32,7 +32,7 @@ provider "kubernetes" {
 module "in28minutes-cluster" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "in28minutes-cluster"
-  cluster_version = "1.14"
+  cluster_version = "1.11.1"
   subnets         = ["subnet-1b7cc27d", "subnet-8af48484", "subnet-5c31b47d"] #CHANGE # Donot choose subnet from us-east-1e
   #subnets = data.aws_subnet_ids.subnets.ids
   vpc_id          = aws_default_vpc.default.id
