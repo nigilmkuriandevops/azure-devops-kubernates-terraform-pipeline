@@ -25,19 +25,17 @@ provider "kubernetes" {
   host                   = data.aws_eks_cluster.cluster.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
   token                  = data.aws_eks_cluster_auth.cluster.token
-  //load_config_file       = false
-  //version                = "~> 1.9"
-  
+  load_config_file       = false
+ // version                = "~> 1.9"
 }
 
 module "in28minutes-cluster" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "in28minutes-cluster"
   cluster_version = "1.17"
-  subnets         = ["subnet-01d59b4c", "subnet-1b7cc27d"] #CHANGE
+  subnets         = ["subnet-1b7cc27d", "subnet-8af48484", "subnet-5c31b47d"] #CHANGE # Donot choose subnet from us-east-1e
   #subnets = data.aws_subnet_ids.subnets.ids
   vpc_id          = aws_default_vpc.default.id
-
   #vpc_id         = "vpc-1234556abcdef"
 
   node_groups = [
